@@ -1,0 +1,65 @@
+name: Salesforce Playwright Tests
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+concurrency:
+  group: playwright-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Create Salesforce Private Key
+        shell: bash
+        run: |
+          mkdir -p certs
+          cat <<'EOF' > certs/server.key
+          ${{ secrets.SF_PRIVATE_KEY }}
+          EOF
+          chmod 600 certs/server.key
+
+      - name: Run Playwright Tests
+        env:
+          CI: true
+          SF_BASE_URL: ${{ secrets.SF_BASE_URL }}
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}
+          SF_CONSUMER_KEY: ${{ secrets.SF_CONSUMER_KEY }}
+          SF_PRIVATE_KEY_PATH: ./certs/server.key
+        run: npx playwright test
+
+      - name: Upload Playwright Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30

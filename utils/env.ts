@@ -10,7 +10,8 @@ function requireEnv(key: string): string {
 }
 
 export const ENV = {
-  baseUrl:  requireEnv('SF_BASE_URL'),
-  username: requireEnv('SF_USERNAME'),
-  password: requireEnv('SF_PASSWORD'),
+  baseUrl:        requireEnv('SF_BASE_URL'),
+  username:       requireEnv('SF_USERNAME'),
+  consumerKey:    requireEnv('SF_CONSUMER_KEY'),
+  privateKeyPath: requireEnv('SF_PRIVATE_KEY_PATH'),
 };

@@ -9,7 +9,7 @@ export class NavigationPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.appLauncher = page.locator('[title="App Launcher"]');
+    this.appLauncher = page.getByRole('button', { name: 'App Launcher' });
     this.globalSearch = page.locator('.globalSearchInput input, input[placeholder*="Search"]');
     this.userAvatar   = page.locator('.userProfileTrigger, [title*="User"]').first();
     this.logoutLink   = page.locator('a[href*="logout"]');

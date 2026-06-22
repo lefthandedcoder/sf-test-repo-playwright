@@ -13,9 +13,12 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@faker-js/faker": "^10.5.0",
     "@playwright/test": "^1.61.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.9.3",
     "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3",
     "typescript": "^6.0.3"
   }
 }
