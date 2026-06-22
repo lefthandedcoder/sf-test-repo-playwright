@@ -11,11 +11,7 @@ test.describe('Salesforce Core UI Operations', () => {
   test.afterEach(async ({ request }) => {
     if (createdContactId) {
       const deleteResponse = await request.delete(`${BASE_API_PATH}/sobjects/Contact/${createdContactId}`);
-      
-      // Asserts that the API data teardown was 100% successful
       expect(deleteResponse.status()).toBe(204); 
-      
-      // Reset the state tracking variable
       createdContactId = null;
     }
   });
@@ -34,10 +30,8 @@ test.describe('Salesforce Core UI Operations', () => {
     const expectedFullName = `${fakeContact.firstName} ${fakeContact.lastName}`;
     await contactsPage.verifyContactHeaderName(expectedFullName);
 
-    // Grab the actual URL string
     const currentUrl = page.url();
     
-    // Regex matches and extracts the 18-character character ID string directly out of the URI path pattern
     const match = currentUrl.match(/\/Contact\/([a-zA-Z0-9]{18})\/view/);
     if (match) {
       createdContactId = match[1];

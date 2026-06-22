@@ -7,7 +7,6 @@ import * as fs from 'fs';
 test.describe('Salesforce JWT Authentication', () => {
 
   test('JWT exchange returns a valid access token and instance URL', async () => {
-    // This test validates the auth utility itself — no browser needed
     const token = await getSalesforceToken();
 
     expect(token.access_token).toBeTruthy();
@@ -16,7 +15,6 @@ test.describe('Salesforce JWT Authentication', () => {
   });
 
   test('authenticated session lands on Lightning home', async ({ authenticatedPage, page }) => {
-    // authenticatedPage fixture handles JWT + cookie injection
     await expect(
       page.getByRole('button', { name: 'App Launcher' })
     ).toBeVisible();
@@ -87,7 +85,7 @@ Jkpll7HxROjsobEdOaLVHKXqBoO3MlnkE/BOV9TcrTHJtoNbB7ivNzihZ2Fpryee
 
     expect(response.ok).toBe(false);
     const body = await response.json();
-    expect(body.error).toBeTruthy(); // 'invalid_grant' or similar
+    expect(body.error).toBeTruthy();
   });
 
   test('JWT with expired timestamp is rejected', async () => {
