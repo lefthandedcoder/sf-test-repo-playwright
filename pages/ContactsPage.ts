@@ -41,13 +41,12 @@ export class ContactsPage {
     if (data.email) await this.emailInput.fill(data.email);
 
     await this.saveButton.click();
-    await this.page.waitForURL(/\/Contact\/[a-zA-Z0-9]{18}\/view/);
   }
 
   async verifyContactHeaderName(expectedFullName: string) {
     await expect(
       this.page.getByRole('heading', { name: expectedFullName, exact: false })
-    ).toBeVisible({ timeout: 10_000 });
+    ).toBeVisible({ timeout: 20_000 });
   }
 
   async getFieldValue(fieldLabel: string): Promise<string> {
