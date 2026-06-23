@@ -23,9 +23,9 @@ readiness signal than Playwright's built-in load states.
 Clone the repo, run `npm install`, then copy `.env.example` to `.env` and fill in
 your org URL, username, Consumer Key, and path to your RSA private key. You'll need
 a Salesforce Developer Edition org (free at developer.salesforce.com) with a
-Connected App configured for JWT bearer flow. Full setup steps are in `.env.example`.
+Connected App or External App configured for JWT bearer flow. Full setup steps are in `.env.example`.
 
-```bash
+```
 npm test                        # full suite
 npx playwright test --headed    # watch the browser
 npx playwright show-report      # open the HTML report
