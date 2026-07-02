@@ -41,7 +41,7 @@ export const test = base.extend<SFFixtures>({
       `${instance_url}/secur/frontdoor.jsp?sid=${access_token}` +
       `&retURL=/lightning/page/home`;
     await page.goto(frontdoorUrl);
-    await page.getByRole('button', { name: 'App Launcher' });
+    await page.getByRole('button', { name: 'App Launcher' }).waitfor();
 
     await use();
   }, { auto: true }],
